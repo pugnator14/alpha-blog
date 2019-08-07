@@ -5,12 +5,6 @@ class ArticlesController <ApplicationController
   def edit
     @article = Article.find(params[:id])
   end
-  def delete
-    @article = Article.find(params[:id])
-    @article.delete
-    Article.update!
-    redirect_to article_path(@article)
-  end
   def update
     @article = Article.find(params[:id])
     if @article.update(article_params)
@@ -34,6 +28,12 @@ class ArticlesController <ApplicationController
   end
   def show
     @article = Article.find(params[:id])
+  end
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to articles_path
+    flash[:notice] = "Article deleted"
   end
   private
   def article_params
